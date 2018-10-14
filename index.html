@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Guessing Game</title>
+    <link rel="stylesheet" href="assets/css/reset.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <script src="assets/javascript/game.js" type="text/javascript"></script>
+
+</head>
+
+<body>
+<!-- the heading to include title and photo -->
+
+<div class="container">
+    <!-- <div style="max-height: 350px;"> -->
+        <div class="jumbotron bg-warning text-center">
+            <h1>Bob's Burgers Character Guess</h1>
+            <img id="title-image" src="assets/images/bobsbanner.jpg" alt="Let's Have some fun" class="responsive" >
+        </div>
+    </div>    
+</div>
+<br>
+<!-- Game container -->
+
+<div class="container">
+    <div class="row bg-warning">
+        <div class="col-1"></div>
+        <div class= "col-5 text-center">
+            <h2 id="winner">You won! you make beefsquatch proud</h2>
+            <h2 id="loser">You Lost! The Belchers are sad</h2>
+            <h2 id="again">Press any key to play again</h2>
+        </div>
+
+
+        <div class= "col-5 text-center">
+            <h3> Press letters on your keyboard to name the character</h3>
+            <h3> Rounds won</h3>
+            <h4 id="totwins"></h4>
+            <h3> Guess this character</h3>
+            <h4 id="chosencharacter"></h4>
+            <h3> Remaining guesses</h3>
+            <h4 id="remainguesses"></h4>
+            <h3> Letters guessed</h3>
+            <h5 id="guessedletters"></h5>
+        </div>
+        <div class="col-1"></div>
+    </div>
+
+</div>
+<script>
+    resetgame();
+    score();
+
+</script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+@font-face { font-family: bobs burgers; src: url("fonts/Bobs Burgers.TTF"); } 
+@font-face { font-family: bobs burgers2; font-weight: bold; src: url("fonts/Bobs burgers2.TTF");}
+
+body { 
+background-color: coral;
+background-image: url("../images/background.jpg");
+font-family: bobs burgers2;
+background-repeat: no-repeat;
+background-size: cover;
+}
+/* .container {
+    max-height: 300px;
+    border-color: black;
+} */
+
+h1 {font-family: bobs burgers;
+    font-size: 86px;
+    margin-top: -60px; 
+}
+
+h2 {font-family: bobs burgers;
+    font-size:  32px;
+}
+
+h3 {font-family: bobs burgers;
+    font-size: 32px;
+}
+
+h4 {font-family: bobs burgers;
+    font-size: 32px;
+}
+
+h5 {font-family: bobs burgers;
+    font-size: 32px;
+}
+
+
+
+
+
+.responsive { width:55%;
+    margin: -10px;
+    margin-bottom: -30px;
+
+}
