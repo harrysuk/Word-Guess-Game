@@ -1,40 +1,46 @@
 // varibles needed
 var characterlist = ["bob", "linda", "tina", "gene", "louise", "teddy", "mort", "beefsquatch"];
-var totalguesses = 10;
+var totalguesses = 8;
 var userguesses = [];
 var letterguess = []
-var remainguesses = 10;
+var remainguesses = 0;
 var wins = 0;
 var gameover = false;
 var reset = false;
 var characterchoice;
+var character;
 
 // game reset
 function resetgame() {
-    remaining_guesses = 10;
+    remaining_guesses = totalguesses;
     userguesses = [];
     letterguess = [];
     reset = false;
 
+    // win or lose message
     document.getElementById("again").style.cssText = "display: none";
     document.getElementById("winner").style.cssText = "display: none";
     document.getElementById("loser").style.cssText = "display: none";
 
     characterchoice = Math.floor(Math.random() * characterlist.length);
-    console.log (characterlist[characterchoice]);
+    character = (characterlist[characterchoice])
 
-    for (var g=0; g < characterlist[characterchoice]; g++) {
-        letterguess.push("_");
-    }
+    for (var i = 0; i < (character.length); i++){
+        letterguess.push(" _ ")
+    };
 
     score();
 };
 
+
 function score() {
+console.log (letterguess);
+console.log (character);
+
     document.getElementById("totwins").innerText = wins;
     document.getElementById("chosencharacter").innerText = "";
     for (var h = 0; h < letterguess.length; h++) {
-    document.getElementById("chosencharacter").innerText += letterguess[h];
+    document.getElementById("chosencharacter").innerText = letterguess;
     };
 
     document.getElementById("remainguesses").innerText = remaining_guesses;
@@ -49,38 +55,41 @@ function score() {
 };
 
     document.onkeydown = function (event) {
+        // game start
     if (gameover) {
-    reset();
+    resetgame();
     gameover = false;
     }
     else {
     // Get input letters only 
-    if(event.keyCode >= 65 && event.keyCode <= 90) {
-    guessLetter(event.key.toLowerCase());
+    if(event.keyCode >= 65 && event.keyCode <= 0122) {
+    guessedletter(event.key.toLowerCase());
     }
     }
+    guessedletter();
 };
 
 
-    function guessLetter(letter) {
+    function guessedletter(letter) {
     if (remainguesses > 0) {
-    if (!reset) {
-    reset = true;
+    if (!resetgame) {
+    resetgame = true;
     }
-    // Check if the letter guessed is not already used
+    Check if the letter guessed is not already used
     if (userguesses.indexOf(letter) === -1) {
     userguesses.push(letter);
-    checkGuess(letter);
+    checkguesses(letter);
     }
-    }
-    updateDisplay();
+    // }
+
     checkWin();
 };
-function checkGuess(letter) {
+function checkguesses(letter) {
     var position = [];
+    console.log (characterlist[characterchoice]);
    
-    for (var k = 0; k < characterist[characterchoice].length; k++) {
-    if (characterList[characterchoice][k] === letter) {
+    for (var k = 0; k < characterlist[characterchoice].length; k++) {
+    if (characterlist[characterchoice][k] === letter) {
     position.push(k);
     }
     }
@@ -94,10 +103,10 @@ function checkGuess(letter) {
     letterguess[position[x]] = letter;
     }
     }
-   };
+};
 
-   function checkWin() {
-    if (letterguess.indexOf("_") === -1) {
+function checkWin() {
+    if (letterguess.indexOf(" _ ") === -1) {
     wins++;
     document.getElementById("winner").style.cssText = "display: block";
     document.getElementById("again").style.cssText = "display: block";

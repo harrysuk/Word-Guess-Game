@@ -33,7 +33,12 @@ h4 {font-family: bobs burgers;
 h5 {font-family: bobs burgers;
     font-size: 32px;
 }
-
+h6 {font-family: bobs burgers;
+    font-size: 32px;
+}
+h7 {font-family: bobs burgers;
+    font-size: 32px;
+}
 
 
 
@@ -42,4 +47,7 @@ h5 {font-family: bobs burgers;
     margin: -10px;
     margin-bottom: -30px;
 
+}
+#chosencharacter {
+    letter-spacing: 10px;
 }
