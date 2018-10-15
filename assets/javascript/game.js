@@ -7,12 +7,12 @@ var remaining_guesses = 0;
 var wins = 0;
 var gameover = false;
 var resetgame = false;
-var position = [];
+var loca = [];
 
 
 // Game reset
 function gamereset() { 
-    remainguesses = totalguesses;
+    remaining_guesses = totalguesses;
     userguesses = [];
     letterguess = [];
     gameover = false;
@@ -29,63 +29,77 @@ function gamereset() {
 
     // Match character to the dashes
     for (var i = 0; i < (character.length); i++){
-        letterguess.push(" _ ")
+        letterguess.push("_")
     };
 
-    startgame();
-};
+    startgame()
+}
 
 function startgame() {
     // update the counters
     document.getElementById("totalwins").innerText = wins;
-    document.getElementById("remainingguesses").innerHTML = remaining_guesses;
+    document.getElementById("remainingguesses").innerText = remaining_guesses;
+    document.getElementById("chosencharacter").innerText = "";
     document.getElementById("guessedletters").innerText = userguesses;
     // Apply the dashes to the array to the correct length
     for (var h = 0; h < letterguess.length; h++) {
-        document.getElementById("chosencharacter").innerText = letterguess;
+        document.getElementById("chosencharacter").innerText += letterguess[h];
     }
-    gameplay()
+
+    if (remaining_guesses <= 0) {
+        document.getElementById("loser").style.cssText = "display: none";
+        document.getElementById("again").style.cssText = "display: none";
+        gameover = true;
+    }
+
+
+letterguess ();
 }
 
-function gameplay() {
-    document.onkeyup = function (event) {
-            if (gameover === true) {
-                gamereset();
-                }
-                    else {
-                    // Get input letters only 
-                        if(event.keyCode >= 65 && event.keyCode <= 0122) {
-                        letterguess = (event.key.toLowerCase());
-                        document.getElementById("guessedletters").append(userguesses)
-                        
+
+document.onkeyup = function (event) {
+    //   game over check
+        if (gameover = true) {
+            gamereset();
+            }
+                else {
+                // sort to get characters only 
+                    if(event.keyCode >= 65 && event.keyCode <= 0122) {
+                    letterguess = (event.key);
+                    letterguess = letterguess.toLowerCase();
+                    // document.getElementById("guessedletters").append(userguesses)
                         }
                     }
-                    // check is user has guessed character already
-                    if(userguesses.indexOf(letterguess) === -1)
-                    {
-                    // check if the letter guess matches the character name
-                        for (var k = 0; k < characterlist[characterchoice].length; k++) {
-                            if (characterlist[characterchoice][k] === letterguess) {
-                                position.push(k);}
-                                // replace the dash with correct letter
-                                for (var x = 0; x < position.length; x++) {
-                                    letterguess[position[x]] = letter;
-                                }
-                            };
-                                        // Lower the counter and add letter to the guessed letter
-                                            remaining_guesses--;
-                                            userguesses.push(letterguess);
-                                            
-                        
-                        }
+                  
+                }               
+function letterguess (alpha){
+    // check is user has guessed character already
+    if(userguesses.indexOf(alpha) === -1)
+    {userguesses.push(alpha)
+
+    // check if the letter guess matches the character name
+        for (var a = 0; a < characterlist[characterchoice].length; a++) {
+            if (characterlist[characterchoice][a] === alpha) {
+                loca.push(a);}
+                // replace the dash with correct letter
+                for (var x = 0; x < loca.length; x++) {
+                    letterguess[loca[x]] = letterguesses;
+                }
+                }
+                   }       // Lower the counter and add letter to the guessed letter
+                      else {remaining_guesses-1;
+                            userguesses.push(letterguess);}
+                            
 checkwinner();
-}
+startgame();                      
+                        }
+                    
 
 function checkwinner(){
     if (letterguess.indexOf(" _ ") === -1) {
         wins++;
         document.getElementById("winner").style.cssText = "display: block";
         document.getElementById("again").style.cssText = "display: block";
-        game_over = true;
+        gameover = true;
     }
-}}
+}
