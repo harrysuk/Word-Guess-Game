@@ -1,105 +1,84 @@
-// varibles needed
-var characterlist = ["bob", "linda", "tina", "gene", "louise", "teddy", "mort", "beefsquatch"];
-var totalguesses = 8;
-var userguesses = [];
-var letterguess = []
-var remaining_guesses = 0;
-var wins = 0;
-var gameover = false;
-var resetgame = false;
-var loca = [];
+window.onload = function () {
 
 
-// Game reset
-function gamereset() { 
-    remaining_guesses = totalguesses;
-    userguesses = [];
-    letterguess = [];
-    gameover = false;
-
-    // win or lose message
-    document.getElementById("again").style.cssText = "display: none";
-    document.getElementById("winner").style.cssText = "display: none";
-    document.getElementById("loser").style.cssText = "display: none";
-    document.getElementById("guessed").style.cssText = "display: none";
-
-    // Character randomizer
-    characterchoice = Math.floor(Math.random() * characterlist.length);
-    character = (characterlist[characterchoice])
-
-    // Match character to the dashes
-    for (var i = 0; i < (character.length); i++){
-        letterguess.push("_")
-    };
-
-    startgame()
-}
-
-function startgame() {
-    // update the counters
-    document.getElementById("totalwins").innerText = wins;
-    document.getElementById("remainingguesses").innerText = remaining_guesses;
-    document.getElementById("chosencharacter").innerText = "";
-    document.getElementById("guessedletters").innerText = userguesses;
-    // Apply the dashes to the array to the correct length
-    for (var h = 0; h < letterguess.length; h++) {
-        document.getElementById("chosencharacter").innerText += letterguess[h];
-    }
-
-    if (remaining_guesses <= 0) {
-        document.getElementById("loser").style.cssText = "display: none";
-        document.getElementById("again").style.cssText = "display: none";
-        gameover = true;
-    }
+var wins =0; $("#totalwins").text(wins); 
+var losses =0;
+var guessesleft = 9;
+// var secretWord = document.getElementById("chosencharacter");
+var gameover = false; 
+var correctguess = 0; 
 
 
-letterguess ();
-}
 
+var game = {
+    List: ["bob", "linda", "tina", "gene", "louise", "teddy", "mort", "beefsquatch"],
+    lettersGuessed: [],
+    letters: [],
+    randomWord: this.character,
+    character: function () {
+        this.randomWord = this.List[Math.floor(Math.random() * this.List.length)];
+    },
+    getLetters: function () {
+        for (var i = 0; i < this.randomWord.length; i++) {
+            this.letters.push(" _ ");
+            
+        }
+    },
+};
+game.character();
+game.getLetters();
+// game.lettersGuessed();
+$("#chosencharacter").append(game.letters);
 
 document.onkeyup = function (event) {
-    //   game over check
-        if (gameover = true) {
-            gamereset();
+    if (gameover === true) {
+        gamereset();
+        }
+    var key = event.key.toLowerCase();
+    var validGuess = /^[a-zA-Z]$/.test(key);
+    if (validGuess) {
+        if (game.randomWord.indexOf(key) === -1 && game.lettersGuessed.indexOf(key) === -1){
+            game.lettersGuessed.push(key);
+            guessesleft--;
+            $("#remainingguesses").text(guessesleft);                
+            $("#guessed-letters").text(game.lettersGuessed.join(""));
+            if (guessesleft === 0) {
+                document.getElementById("#loser").style.cssText = "display: none";
+
+                gameover = true;
+                gamereset();
+
             }
-                else {
-                // sort to get characters only 
-                    if(event.keyCode >= 65 && event.keyCode <= 0122) {
-                    letterguess = (event.key);
-                    letterguess = letterguess.toLowerCase();
-                    // document.getElementById("guessedletters").append(userguesses)
-                        }
+            }
+            
+        else {
+            for (var x = 0; x < game.randomWord.length; x++) {
+                if (game.randomWord[x] === key) {
+                    game.letters[x] = game.randomWord[x];
+                    $("#chosencharacter").text(game.letters.join(""));
+                    correctguess++;
+                }
+            }
+        }
+                    if (game.randomWord === game.letters){
+                        win++;
+                        document.getElementById("#winner").style.cssText = "display: block";
+                        $("#totalwins").text(wins);
+                        gameover = true;
+                        
                     }
-                  
-                }               
-function letterguess (alpha){
-    // check is user has guessed character already
-    if(userguesses.indexOf(alpha) === -1)
-    {userguesses.push(alpha)
+        }
+        if (gameover === true){
+            game.lettersGuessed.length =0;
+            game.letters.length =0;
+            }
 
-    // check if the letter guess matches the character name
-        for (var a = 0; a < characterlist[characterchoice].length; a++) {
-            if (characterlist[characterchoice][a] === alpha) {
-                loca.push(a);}
-                // replace the dash with correct letter
-                for (var x = 0; x < loca.length; x++) {
-                    letterguess[loca[x]] = letterguesses;
-                }
-                }
-                   }       // Lower the counter and add letter to the guessed letter
-                      else {remaining_guesses-1;
-                            userguesses.push(letterguess);}
-                            
-checkwinner();
-startgame();                      
-                        }
-                    
-
-function checkwinner(){
-    if (letterguess.indexOf(" _ ") === -1) {
-        wins++;
-        document.getElementById("winner").style.cssText = "display: block";
-        document.getElementById("again").style.cssText = "display: block";
-        gameover = true;
     }
+
 }
+
+
+
+
+
+
