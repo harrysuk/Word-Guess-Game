@@ -1,19 +1,22 @@
-window.onload = function () {
+var guessgame = {
 
 
-var wins =0; $("#totalwins").text(wins); 
-var losses =0;
-var guessesleft = 9;
+// varbles for gameplay
+wins =0,
+losses =0,
+guessesleft = 9,
 // var secretWord = document.getElementById("chosencharacter");
-var gameover = false; 
-var correctguess = 0; 
+gameover = false,
+correctguess = 0,
+lost= "OH NO! you lost, that makes beefsquatch sad",
+win= "You won! ",
+List: ["bob", "linda", "tina", "gene", "louise", "teddy", "mort", "beefsquatch"],
+lettersGuessed: [],
+letters: [],
 
 
 
-var game = {
-    List: ["bob", "linda", "tina", "gene", "louise", "teddy", "mort", "beefsquatch"],
-    lettersGuessed: [],
-    letters: [],
+gamestart: function() {
     randomWord: this.character,
     character: function () {
         this.randomWord = this.List[Math.floor(Math.random() * this.List.length)];
@@ -21,8 +24,7 @@ var game = {
     getLetters: function () {
         for (var i = 0; i < this.randomWord.length; i++) {
             this.letters.push(" _ ");
-            
-        }
+            }
     },
 };
 game.character();
@@ -36,6 +38,8 @@ document.onkeyup = function (event) {
         }
     var key = event.key.toLowerCase();
     var validGuess = /^[a-zA-Z]$/.test(key);
+    console.log(game.randomWord);
+    console.log(game.letters);
     if (validGuess) {
         if (game.randomWord.indexOf(key) === -1 && game.lettersGuessed.indexOf(key) === -1){
             game.lettersGuessed.push(key);
@@ -43,8 +47,7 @@ document.onkeyup = function (event) {
             $("#remainingguesses").text(guessesleft);                
             $("#guessed-letters").text(game.lettersGuessed.join(""));
             if (guessesleft === 0) {
-                document.getElementById("#loser").style.cssText = "display: none";
-
+                $("#loser").text(lost);
                 gameover = true;
                 gamereset();
 
@@ -60,9 +63,9 @@ document.onkeyup = function (event) {
                 }
             }
         }
-                    if (game.randomWord === game.letters){
+                    if (game.letters.indexOf(" _ ") === -1){
                         win++;
-                        document.getElementById("#winner").style.cssText = "display: block";
+                        $("#winner").text(win);
                         $("#totalwins").text(wins);
                         gameover = true;
                         
@@ -74,11 +77,17 @@ document.onkeyup = function (event) {
             }
 
     }
+       
 
 }
 
-
-
-
+function gamereset(){
+    remaining_guesses = 9;
+    // game.letters.length = 0;
+    // game.lettersGuessed = [];
+    // gameover = false;
+    // game.character();
+    // game.getLetters();
+}
 
 
